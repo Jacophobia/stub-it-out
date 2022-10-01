@@ -1,0 +1,34 @@
+[settings]
+name = "Example"
+path = "./example"
+
+
+[enum.Color]
+options = [
+  "BLUE",
+  "GREEN",
+  "YELLOW"
+]
+
+
+[class.Dog]
+parent = "Animal"
+[class.Dog.private]
+color = "Color"
+breed = "string"
+[class.Dog.public.method.getColor]
+return = "Color"
+[class.Dog.public.method.setColor]
+params = { color = "Color" }
+
+
+[class.Animal.private]
+age = "integer"
+
+
+[function.main]
+calls = [
+  "Dog",
+  "Dog.setColor",
+  "Dog.getColor"
+]

@@ -1,58 +1,23 @@
 mod project;
+mod project_class;
+mod project_enum;
+mod project_function;
+mod project_interface;
+mod project_method;
+mod project_settings;
+mod project_struct;
+mod project_variable;
+mod toml_parser;
+mod toml_parser_test;
 mod validator;
 mod validator_test;
 
-use std::env;
-
-use toml_edit::{Document, Value};
-
-use crate::project::Project;
-use crate::project::Validator;
+use crate::project::project::Project;
 
 fn main() {
-    let toml = r#"
-[settings]
-name = "Example"
-path = "./example"
-
-
-[enum.Color]
-options = [
-  "BLUE",
-  "GREEN",
-  "YELLOW"
-]
-
-[class]
-test = "print me"
-parent = "Animal"
-color = "Color"
-breed = "string"
-
-[class.Dog]
-parent = "Animal"
-[class.Dog.private]
-color = "Color"
-breed = "string"
-[class.Dog.public.method.getColor]
-return = "Color"
-[class.Dog.public.method.setColor]
-params = { color = "Color" }
-
-
-[class.Animal.private]
-age = "integer"
-
-
-[function.main]
-calls = [
-  "Dog",
-  "Dog.setColor",
-  "Dog.getColor"
-]"#;
-    // for arg in env::args() {
-    //     println!("{}", arg);
-    // }
+    for arg in std::env::args() {
+        println!("{}", arg);
+    }
     use std::sync::mpsc;
     use std::thread;
     use std::time::Duration;

@@ -1,8 +1,14 @@
-use std::collections::HashSet;
+use crate::project_class::class::Class;
+use crate::project_enum::enumeration::Enumeration;
+use crate::project_function::function::Function;
+use crate::project_interface::interface::Interface;
+use crate::project_method::method::Method;
+use crate::project_settings::settings::Settings;
+use crate::project_struct::structure::Struct;
+use crate::project_variable::variable::Variable;
+use crate::Project;
 
-use crate::project::{
-    Class, Enumeration, Function, Interface, Method, Project, Settings, Struct, Variable,
-};
+use std::collections::HashSet;
 
 pub struct Validator {
     require_descriptions: bool,

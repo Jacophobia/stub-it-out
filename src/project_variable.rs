@@ -8,12 +8,8 @@ pub mod variable {
     }
 
     impl Variable {
-        pub fn new(name: &str, data_type: &str) -> Variable {
-            Variable {
-                name: String::from(name),
-                data_type: String::from(data_type),
-                is_pointer: false,
-            }
+        pub fn builder() -> Builder {
+            Builder::new()
         }
     }
 
@@ -24,6 +20,14 @@ pub mod variable {
     }
 
     impl Builder {
+        fn new() -> Builder {
+            Builder {
+                name: None,
+                data_type: None,
+                is_pointer: None
+            }
+        }
+
         pub fn add_name(&mut self, name: String) -> &mut Builder {
             self.name = Some(name);
             self

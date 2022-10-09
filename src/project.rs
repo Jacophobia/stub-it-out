@@ -28,16 +28,6 @@ pub mod project {
         pub fn builder() -> Builder {
             Builder::new()
         }
-        pub fn new(name: &str) -> Project {
-            Project {
-                settings: Settings::new(name),
-                enums: None,
-                functions: None,
-                structs: None,
-                interfaces: None,
-                classes: None,
-            }
-        }
     }
 
     pub struct Builder {
@@ -50,7 +40,7 @@ pub mod project {
     }
 
     impl Builder {
-        pub fn new() -> Builder {
+        fn new() -> Builder {
             Builder {
                 settings: None,
                 enums: None,

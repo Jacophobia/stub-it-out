@@ -27,16 +27,8 @@ pub mod class {
     }
 
     impl Class {
-        pub fn new(name: &str, description: &str) -> Class {
-            Class {
-                name: String::from(name),
-                description: String::from(description),
-                path: None,
-                parent: None,
-                private: None,
-                protected: None,
-                public: None,
-            }
+        pub fn builder() -> Builder {
+            Builder::new()
         }
     }
 
@@ -51,6 +43,17 @@ pub mod class {
     }
 
     impl Builder {
+        fn new() -> Builder {
+            Builder {
+                name: None,
+                description: None,
+                path: None,
+                parent: None,
+                private: None,
+                protected: None,
+                public: None
+            }
+        }
         // *** SETTINGS ***
         pub fn add_name(&mut self, name: String) -> &mut Builder {
             self.name = Some(name);

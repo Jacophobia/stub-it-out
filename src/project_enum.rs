@@ -8,12 +8,8 @@ pub mod enumeration {
     }
 
     impl Enumeration {
-        pub fn new(name: &str, options: Vec<String>) -> Enumeration {
-            Enumeration {
-                name: String::from(name),
-                path: None,
-                options,
-            }
+        pub fn builder() -> Builder {
+            Builder::new()
         }
     }
 
@@ -24,6 +20,13 @@ pub mod enumeration {
     }
 
     impl Builder {
+        fn new() -> Builder {
+            Builder {
+                name: None,
+                path: None,
+                options: None
+            }
+        }
         // *** SETTINGS ***
         pub fn add_name(&mut self, name: String) -> &mut Builder {
             self.name = Some(name);

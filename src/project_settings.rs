@@ -8,12 +8,8 @@ pub mod settings {
     }
 
     impl Settings {
-        pub fn new(name: &str) -> Settings {
-            Settings {
-                name: String::from(name),
-                path: None,
-                other_config_files: None,
-            }
+        pub fn builder() -> Builder {
+            Builder::new()
         }
     }
 
@@ -24,6 +20,14 @@ pub mod settings {
     }
 
     impl Builder {
+        fn new() -> Builder {
+            Builder {
+                name: None,
+                path: None,
+                other_config_files: None
+            }
+        }
+
         // *** SETTINGS ***
 
         pub fn add_name(&mut self, name: String) -> &mut Builder {

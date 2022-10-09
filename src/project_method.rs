@@ -11,14 +11,8 @@ pub mod method {
     }
 
     impl Method {
-        pub fn new(name: &str, description: &str) -> Method {
-            Method {
-                name: String::from(name),
-                description: String::from(description),
-                params: None,
-                calls: None,
-                return_type: None,
-            }
+        pub fn builder() -> Builder {
+            Builder::new()
         }
     }
 
@@ -31,6 +25,16 @@ pub mod method {
     }
 
     impl Builder {
+        fn new() -> Builder {
+            Builder {
+                name: None,
+                description: None,
+                params: None,
+                calls: None,
+                return_type: None
+            }
+        }
+
         // *** SETTINGS ***
         pub fn add_name(&mut self, name: String) -> &mut Builder {
             self.name = Some(name);

@@ -11,14 +11,8 @@ pub mod structure {
     }
 
     impl Struct {
-        pub fn new(name: &str, description: &str) -> Struct {
-            Struct {
-                name: String::from(name),
-                description: String::from(description),
-                path: None,
-                variables: None,
-                static_variables: None,
-            }
+        pub fn builder() -> Builder {
+            Builder::new()
         }
     }
 
@@ -31,6 +25,16 @@ pub mod structure {
     }
 
     impl Builder {
+        fn new() -> Builder {
+            Builder {
+                name: None,
+                description: None,
+                path: None,
+                variables: None,
+                static_variables: None
+            }
+        }
+
         // *** SETTINGS ***
 
         pub fn add_name(&mut self, name: String) -> &mut Builder {

@@ -11,14 +11,8 @@ pub mod interface {
     }
 
     impl Interface {
-        pub fn new(name: &str, description: &str) -> Interface {
-            Interface {
-                name: String::from(name),
-                description: String::from(description),
-                path: None,
-                methods: None,
-                static_methods: None,
-            }
+        pub fn builder() -> Builder {
+            Builder::new()
         }
     }
 
@@ -31,6 +25,16 @@ pub mod interface {
     }
 
     impl Builder {
+        fn new() -> Builder {
+            Builder {
+                name: None,
+                description: None,
+                path: None,
+                methods: None,
+                static_methods: None
+            }
+        }
+
         // *** SETTINGS ***
         pub fn add_name(&mut self, name: String) -> &mut Builder {
             self.name = Some(name);

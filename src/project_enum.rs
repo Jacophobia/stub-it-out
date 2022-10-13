@@ -24,7 +24,7 @@ pub mod enumeration {
             Builder {
                 name: None,
                 path: None,
-                options: None
+                options: None,
             }
         }
         // *** SETTINGS ***

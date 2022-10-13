@@ -51,7 +51,7 @@ pub mod class {
                 parent: None,
                 private: None,
                 protected: None,
-                public: None
+                public: None,
             }
         }
         // *** SETTINGS ***

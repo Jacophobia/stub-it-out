@@ -24,7 +24,7 @@ pub mod variable {
             Builder {
                 name: None,
                 data_type: None,
-                is_pointer: None
+                is_pointer: None,
             }
         }
 

@@ -31,7 +31,7 @@ pub mod interface {
                 description: None,
                 path: None,
                 methods: None,
-                static_methods: None
+                static_methods: None,
             }
         }
 

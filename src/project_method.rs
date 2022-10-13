@@ -31,7 +31,7 @@ pub mod method {
                 description: None,
                 params: None,
                 calls: None,
-                return_type: None
+                return_type: None,
             }
         }
 

@@ -24,7 +24,7 @@ pub mod settings {
             Builder {
                 name: None,
                 path: None,
-                other_config_files: None
+                other_config_files: None,
             }
         }
 

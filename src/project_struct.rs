@@ -31,7 +31,7 @@ pub mod structure {
                 description: None,
                 path: None,
                 variables: None,
-                static_variables: None
+                static_variables: None,
             }
         }
 

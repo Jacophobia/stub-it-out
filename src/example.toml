@@ -1,34 +1,139 @@
 [settings]
-name = "Example"
-path = "./example"
+  name = "ProjectName"
+  path = "./"
+  other_config_files = "./other_config_file.toml"
 
+[enum.EnumName]
+  path = "./EnumName"
+  options = [
+    "Option 1",
+    "Option 2",
+    "Option 3"
+  ]
 
-[enum.Color]
+[function.FunctionName]
+  description = "This is a function"
+  path = "./FunctionName"
+  params = { ParameterOne = "integer", ParameterTwo = "integer" }
+  calls = [
+    "ClassName.PublicMethodName",
+    "InterfaceName.PublicMethodName",
+    "FunctionName2"
+  ]
+  return = "integer"
+
+[function.FunctionName2]
+  description = "This is another function"
+
+[struct.StructName]
+  description = "This is a struct"
+  path = "./StructName"
+  VariableName = "integer"
+  [struct.StructName.static]
+    VariableName2 = "integer"
+
+[interface.InterfaceName]
+  description = "This is an interface"
+  [interface.InterfaceName.public.method.PublicMethodName]
+    description = "This is a method"
+  [interface.InterfaceName.private.method.PrivateMethodName]
+    description = "This is a method"
+
+[class.ClassName]
+  description = "This is a class"
+  [class.ClassName.private]
+    PrivateVariableName = "integer"
+    [class.ClassName.private.method.PrivateMethodName]
+      description = "This is a method"
+    [class.ClassName.private.static]
+      PrivateStaticVariableName = "integer"
+      [class.ClassName.private.static.method.PrivateStaticMethodName]
+        description = "This is a method"
+  [class.ClassName.public]
+    PublicVariableName = "integer"
+    [class.ClassName.public.class.InnerClassName]
+      description = "This is a class"
+    [class.ClassName.public.enum.InnerEnumName]
+      options = [
+        "Option 1",
+        "Option 2",
+        "Option 3"
+      ]
+    [class.ClassName.public.struct.InnerStructName]
+      description = "This is a struct"
+    [class.ClassName.public.method.PublicMethodName]
+      description = "This is a method"
+    [class.ClassName.public.static]
+      PublicStaticVariableName = "integer"
+      [class.ClassName.public.static.method.PublicStaticMethodName]
+        description = "This is a method"
+
+[settings]
+name = "ProjectName"
+path = "./"
+other_config_files = "./other_config_file.toml"
+
+[enum.EnumName]
+path = "./EnumName"
 options = [
-  "BLUE",
-  "GREEN",
-  "YELLOW"
+  "Option 1",
+  "Option 2",
+  "Option 3"
 ]
 
-
-[class.Dog]
-parent = "Animal"
-[class.Dog.private]
-color = "Color"
-breed = "string"
-[class.Dog.public.method.getColor]
-return = "Color"
-[class.Dog.public.method.setColor]
-params = { color = "Color" }
-
-
-[class.Animal.private]
-age = "integer"
-
-
-[function.main]
+[function.FunctionName]
+description = "This is a function"
+path = "./FunctionName"
+params = { ParameterOne = "integer", ParameterTwo = "integer" }
 calls = [
-  "Dog",
-  "Dog.setColor",
-  "Dog.getColor"
+  "ClassName.PublicMethodName",
+  "InterfaceName.PublicMethodName",
+  "FunctionName2"
 ]
+return = "integer"
+
+[function.FunctionName2]
+description = "This is another function"
+
+[struct.StructName]
+description = "This is a struct"
+path = "./StructName"
+VariableName = "integer"
+[struct.StructName.static]
+VariableName2 = "integer"
+
+[interface.InterfaceName]
+description = "This is an interface"
+[interface.InterfaceName.public.method.PublicMethodName]
+description = "This is a method"
+[interface.InterfaceName.private.method.PrivateMethodName]
+description = "This is a method"
+
+[class.ClassName]
+description = "This is a class"
+[class.ClassName.private]
+PrivateVariableName = "integer"
+[class.ClassName.private.method.PrivateMethodName]
+description = "This is a method"
+[class.ClassName.private.static]
+PrivateStaticVariableName = "integer"
+[class.ClassName.private.static.method.PrivateStaticMethodName]
+description = "This is a method"
+[class.ClassName.public]
+PublicVariableName = "integer"
+[class.ClassName.public.class.InnerClassName]
+description = "This is a class"
+[class.ClassName.public.enum.InnerEnumName]
+options = [
+  "Option 1",
+  "Option 2",
+  "Option 3"
+]
+[class.ClassName.public.struct.InnerStructName]
+description = "This is a struct"
+[class.ClassName.public.method.PublicMethodName]
+description = "This is a method"
+[class.ClassName.public.static]
+PublicStaticVariableName = "integer"
+[class.ClassName.public.static.method.PublicStaticMethodName]
+description = "This is a method"

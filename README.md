@@ -22,13 +22,10 @@ v v v Supported Constructs v v v
 <interface>
   description: string
   path?: string
-  method?
-    <method>?
-    ...
-  static?
-    method?
-      <method>?
-      ...
+  private, protected, or public
+      method?
+        <method>?
+        ...
 
 <method>
   description: string

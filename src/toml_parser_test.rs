@@ -12,7 +12,7 @@ mod test {
     use crate::Project;
 
     #[test]
-    fn from_string__each_top_level_type_is_present() {
+    fn from_string() {
         // setup
         let parser = toml::Parser::new();
         let input = each_type_toml_str();
@@ -20,25 +20,10 @@ mod test {
         let result = parser.str_to_project(input);
         // validate
         let expected_result = each_type_project();
+        // println!("{:#?}", result);
+        // println!("\n\nvs\n\n");
+        // println!("{:#?}", expected_result);
         assert_eq!(expected_result, result);
-    }
-
-    #[test]
-    fn from_string__classes_can_be_nested() {
-        // setup
-
-        // execute
-
-        // validate
-    }
-
-    #[test]
-    fn from_string__each_nested_attribute_is_converted() {
-        // setup
-        let proj = each_type_project();
-        // execute
-        println!("Hello!");
-        // validate
     }
 
     fn each_type_project() -> Project {
@@ -58,20 +43,65 @@ mod test {
             .add_option(String::from("Option 2"))
             .add_option(String::from("Option 3"));
 
+        let mut param_one_builder = Variable::builder();
+        let mut param_two_builder = Variable::builder();
+        param_one_builder
+            .add_name(String::from("ParameterOne"))
+            .add_data_type(String::from("integer"));
+        param_two_builder
+            .add_name(String::from("ParameterTwo"))
+            .add_data_type(String::from("integer"));
+
         let mut function_builder = Function::builder();
         function_builder
             .add_name(String::from("FunctionName"))
-            .add_description(String::from("This is a function"));
+            .add_description(String::from("This is a function"))
+            .add_path(String::from("./FunctionName"))
+            .add_param(
+                param_one_builder
+                    .build()
+                    .expect("Unable to build parameter one"),
+            )
+            .add_param(
+                param_two_builder
+                    .build()
+                    .expect("Unable to build parameter two"),
+            )
+            .add_call(String::from("ClassName.PublicMethodName"))
+            .add_call(String::from("InterfaceName.PublicMethodName"))
+            .add_call(String::from("FunctionName2"))
+            .add_return_type(String::from("integer"));
 
         let mut function_builder_2 = Function::builder();
         function_builder_2
             .add_name(String::from("FunctionName2"))
             .add_description(String::from("This is another function"));
 
+        let mut variable_builder = Variable::builder();
+        variable_builder
+            .add_name(String::from("VariableName"))
+            .add_data_type(String::from("integer"));
+
+        let mut variable_builder_2 = Variable::builder();
+        variable_builder_2
+            .add_name(String::from("VariableName2"))
+            .add_data_type(String::from("integer"));
+
         let mut struct_builder = Struct::builder();
         struct_builder
             .add_name(String::from("StructName"))
-            .add_description(String::from("This is a struct"));
+            .add_description(String::from("This is a struct"))
+            .add_path(String::from("./StructName"))
+            .add_variable(
+                variable_builder
+                    .build()
+                    .expect("Unable to build StructName.VariableName"),
+            )
+            .add_static_variable(
+                variable_builder_2
+                    .build()
+                    .expect("Unable to build StructName.VariableName2"),
+            );
 
         // public (class)
         let mut public_method_builder_c = Method::builder();
@@ -148,6 +178,23 @@ mod test {
                     .expect("Unable to build private method for interface"),
             );
 
+        let mut inner_class_builder = Class::builder();
+        inner_class_builder
+            .add_name(String::from("InnerClassName"))
+            .add_description(String::from("This is a class"));
+
+        let mut inner_enum_builder = Enumeration::builder();
+        inner_enum_builder
+            .add_name(String::from("InnerEnumName"))
+            .add_option(String::from("Option 1"))
+            .add_option(String::from("Option 2"))
+            .add_option(String::from("Option 3"));
+
+        let mut inner_struct_builder = Struct::builder();
+        inner_struct_builder
+            .add_name(String::from("InnerStructName"))
+            .add_description(String::from("This is a struct"));
+
         let mut class_builder = Class::builder();
         class_builder
             .add_name(String::from("ClassName"))
@@ -191,6 +238,21 @@ mod test {
                 private_static_variable_builder
                     .build()
                     .expect("Unable to build public static variable for class"),
+            )
+            .add_public_class(
+                inner_class_builder
+                    .build()
+                    .expect("Unable to build public class for class"),
+            )
+            .add_public_enum(
+                inner_enum_builder
+                    .build()
+                    .expect("Unable to build public enum for class"),
+            )
+            .add_public_struct(
+                inner_struct_builder
+                    .build()
+                    .expect("Unable to build public struct for class"),
             );
 
         project_builder
@@ -235,65 +297,75 @@ mod test {
 
     fn each_type_toml_str() -> String {
         let toml = r#"
-        [settings]
-        name = "ProjectName"
-        path = "./"
-        other_config_files = "./other_config_file.toml"
+            [settings]
+            name = "ProjectName"
+            path = "./"
+            other_config_files = "./other_config_file.toml"
 
-        [enum.EnumName]
-        path = "./EnumName"
-        options = [
-          "Option 1",
-          "Option 2",
-          "Option 3"
-        ]
+            [enum.EnumName]
+            path = "./EnumName"
+            options = [
+              "Option 1",
+              "Option 2",
+              "Option 3"
+            ]
 
-        [function.FunctionName]
-        description = "This is a function"
-        path = "./FunctionName"
-        params = {
-            ParameterOne = "integer",
-            ParameterTwo = "integer"
-        }
-        calls = [
-            "ClassName.PublicMethod",
-            "InterfaceName.PublicMethodName",
-            "FunctionName2"
-        ]
-        return = "integer"
+            [function.FunctionName]
+            description = "This is a function"
+            path = "./FunctionName"
+            params = { ParameterOne = "integer", ParameterTwo = "integer" }
+            calls = [
+              "ClassName.PublicMethodName",
+              "InterfaceName.PublicMethodName",
+              "FunctionName2"
+            ]
+            return = "integer"
 
-        [function.FunctionName2]
-        description = "This is another function"
+            [function.FunctionName2]
+            description = "This is another function"
 
-        [struct.StructName]
-        description = "This is a struct"
+            [struct.StructName]
+            description = "This is a struct"
+            path = "./StructName"
+            VariableName = "integer"
+            [struct.StructName.static]
+            VariableName2 = "integer"
 
-        [interface.InterfaceName]
-        description = "This is an interface"
-        [interface.InterfaceName.method.PublicMethodName]
-        description = "This is a method"
-        [interface.InterfaceName.static.method.PublicStaticMethodName]
-        description = "This is a method"
+            [interface.InterfaceName]
+            description = "This is an interface"
+            [interface.InterfaceName.public.method.PublicMethodName]
+            description = "This is a method"
+            [interface.InterfaceName.private.method.PrivateMethodName]
+            description = "This is a method"
 
-        [class.ClassName]
-        description = "This is a class"
-        [class.ClassName.private]
-        PrivateVariableName = "integer"
-        [class.ClassName.private.static]
-        PrivateStaticVariableName = "integer"
-        [class.ClassName.public]
-        PublicVariableName = "integer"
-        [class.ClassName.public.static]
-        PublicStaticVariableName = "integer"
-        [class.ClassName.private.method.PrivateMethod]
-        description = "This is a method"
-        [class.ClassName.private.static.method.PrivateStaticMethod]
-        description = "This is a method"
-        [class.ClassName.public.method.PublicMethod]
-        description = "This is a method"
-        [class.ClassName.public.static.method.PublicStaticMethod]
-        description = "This is a method"
-        params = { color = "Color" }
+            [class.ClassName]
+            description = "This is a class"
+            [class.ClassName.private]
+            PrivateVariableName = "integer"
+            [class.ClassName.private.method.PrivateMethodName]
+            description = "This is a method"
+            [class.ClassName.private.static]
+            PrivateStaticVariableName = "integer"
+            [class.ClassName.private.static.method.PrivateStaticMethodName]
+            description = "This is a method"
+            [class.ClassName.public]
+            PublicVariableName = "integer"
+            [class.ClassName.public.class.InnerClassName]
+            description = "This is a class"
+            [class.ClassName.public.enum.InnerEnumName]
+            options = [
+              "Option 1",
+              "Option 2",
+              "Option 3"
+            ]
+            [class.ClassName.public.struct.InnerStructName]
+            description = "This is a struct"
+            [class.ClassName.public.method.PublicMethodName]
+            description = "This is a method"
+            [class.ClassName.public.static]
+            PublicStaticVariableName = "integer"
+            [class.ClassName.public.static.method.PublicStaticMethodName]
+            description = "This is a method"
         "#;
         String::from(toml)
     }

@@ -55,7 +55,7 @@ pub mod function {
         }
 
         // *** VALUES ***
-        pub fn add_calls(&mut self, call: String) -> &mut Builder {
+        pub fn add_call(&mut self, call: String) -> &mut Builder {
             match &mut self.calls {
                 None => {
                     self.calls = Some(vec![call]);
